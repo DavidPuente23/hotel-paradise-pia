@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block titulo %}{{ titulo }} | Hotel Paradise{% endblock %}
+
+{% block contenido %}
+<div class="cabecera-pagina">
+    <div>
+        <h1><i class="bi bi-calendar-plus me-1"></i>{{ titulo }}</h1>
+        <p>El sistema valida las fechas y la disponibilidad antes de guardar.</p>
+    </div>
+    <a href="{% url 'reservaciones:lista' %}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i>Regresar
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body p-4">
+                <div class="alert alert-info small">
+                    <i class="bi bi-info-circle me-1"></i>
+                    Una habitación no puede tener dos reservaciones en las mismas fechas.
+                    El total se calcula automáticamente con las noches y el precio de la habitación.
+                </div>
+
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    {% include 'includes/campos_formulario.html' %}
+
+                    <div class="alert alert-secondary d-flex justify-content-between align-items-center">
+                        <span><i class="bi bi-calculator me-1"></i>Total estimado:</span>
+                        <strong id="total-estimado">$0.00 MXN</strong>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save me-1"></i>Guardar reservación
+                        </button>
+                        <a href="{% url 'reservaciones:lista' %}" class="btn btn-outline-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ precios|json_script:"precios-habitaciones" }}
+<script>
+    // Cálculo del total estimado (solo visual; el total real se guarda en el modelo)
+    const precios = JSON.parse(document.getElementById('precios-habitaciones').textContent);
+    const campoHabitacion = document.getElementById('id_habitacion');
+    const campoEntrada = document.getElementById('id_fecha_entrada');
+    const campoSalida = document.getElementById('id_fecha_salida');
+    const etiquetaTotal = document.getElementById('total-estimado');
+
+    function actualizarTotal() {
+        const precio = parseFloat(precios[campoHabitacion.value] || 0);
+        const entrada = new Date(campoEntrada.value);
+        const salida = new Date(campoSalida.value);
+
+        if (!isNaN(entrada) && !isNaN(salida) && salida > entrada) {
+            const noches = Math.round((salida - entrada) / (1000 * 60 * 60 * 24));
+            const total = noches * precio;
+            etiquetaTotal.textContent = '$' + total.toFixed(2) + ' MXN (' + noches + ' noche(s))';
+        } else {
+            etiquetaTotal.textContent = '$0.00 MXN';
+        }
+    }
+
+    campoHabitacion.addEventListener('change', actualizarTotal);
+    campoEntrada.addEventListener('change', actualizarTotal);
+    campoSalida.addEventListener('change', actualizarTotal);
+    actualizarTotal();
+</script>
+{% endblock %}

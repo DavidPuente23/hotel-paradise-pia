@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Reservaciones | Hotel Paradise{% endblock %}
+
+{% block contenido %}
+<div class="cabecera-pagina">
+    <div>
+        <h1><i class="bi bi-calendar-check me-1"></i>Reservaciones</h1>
+        <p>Consulta, registra, modifica y cancela las reservaciones del hotel.</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a href="{% url 'reservaciones:disponibilidad' %}" class="btn btn-outline-primary">
+            <i class="bi bi-search me-1"></i>Disponibilidad
+        </a>
+        <a href="{% url 'reservaciones:crear' %}" class="btn btn-primary">
+            <i class="bi bi-plus-circle me-1"></i>Nueva reservación
+        </a>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <form method="get" class="row g-2 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label" for="q">Buscar</label>
+                <input type="text" class="form-control" id="q" name="q" value="{{ q }}"
+                       placeholder="Cliente, correo o número de habitación">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label" for="tipo">Tipo de habitación</label>
+                <select class="form-select" id="tipo" name="tipo">
+                    <option value="">Todos los tipos</option>
+                    {% for valor, etiqueta in tipos %}
+                    <option value="{{ valor }}" {% if tipo == valor %}selected{% endif %}>{{ etiqueta }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label" for="estado">Estado</label>
+                <select class="form-select" id="estado" name="estado">
+                    <option value="">Todos los estados</option>
+                    {% for valor, etiqueta in estados %}
+                    <option value="{{ valor }}" {% if estado == valor %}selected{% endif %}>{{ etiqueta }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2 d-flex gap-2">
+                <button type="submit" class="btn btn-primary w-100"><i class="bi bi-search"></i></button>
+                <a href="{% url 'reservaciones:lista' %}" class="btn btn-outline-secondary w-100" title="Limpiar">
+                    <i class="bi bi-x-lg"></i>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header"><i class="bi bi-list-ul me-1"></i>Listado de reservaciones</div>
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Cliente</th>
+                    <th>Habitación</th>
+                    <th>Entrada</th>
+                    <th>Salida</th>
+                    <th>Noches</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th class="text-end">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reservacion in pagina %}
+                <tr>
+                    <td><a href="{% url 'reservaciones:detalle' reservacion.pk %}">{{ reservacion.pk }}</a></td>
+                    <td>{{ reservacion.cliente }}</td>
+                    <td>{{ reservacion.habitacion.numero }} ({{ reservacion.habitacion.tipo }})</td>
+                    <td>{{ reservacion.fecha_entrada|date:"d/m/Y" }}</td>
+                    <td>{{ reservacion.fecha_salida|date:"d/m/Y" }}</td>
+                    <td>{{ reservacion.noches }}</td>
+                    <td>${{ reservacion.total|floatformat:2 }}</td>
+                    <td>{% include 'includes/badge_estado.html' with estado=reservacion.estado %}</td>
+                    <td class="text-end text-nowrap">
+                        <a href="{% url 'reservaciones:detalle' reservacion.pk %}" class="btn btn-sm btn-outline-primary">Ver</a>
+                        {% if reservacion.estado != 'Cancelada' %}
+                            <a href="{% url 'reservaciones:editar' reservacion.pk %}" class="btn btn-sm btn-outline-secondary">Editar</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="9" class="text-center text-muted py-4">
+                        No se encontraron reservaciones.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% include 'includes/paginacion.html' with pagina=pagina querystring=querystring %}
+{% endblock %}
