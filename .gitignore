@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+db.sqlite3
+
+# Entornos virtuales
+venv/
+.venv/
+env/
+
+# Archivos estáticos generados
+staticfiles/
+
+# Multimedia subida por el usuario (se genera con cargar_demo)
+media/habitaciones/*.jpg
+
+# Configuración del editor
+.vscode/
+.idea/
+*.swp
+
+# Sistema operativo
+Thumbs.db
+.DS_Store
+
