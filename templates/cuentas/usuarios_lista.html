@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Usuarios | Hotel Paradise{% endblock %}
+
+{% block contenido %}
+<div class="cabecera-pagina">
+    <div>
+        <h1><i class="bi bi-shield-lock me-1"></i>Control de usuarios</h1>
+        <p>Solo los administradores pueden crear y desactivar usuarios del sistema.</p>
+    </div>
+    <a href="{% url 'cuentas:crear_usuario' %}" class="btn btn-primary">
+        <i class="bi bi-person-plus me-1"></i>Nuevo usuario
+    </a>
+</div>
+
+<div class="card">
+    <div class="card-header"><i class="bi bi-people me-1"></i>Usuarios registrados</div>
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
+                    <th>Alta</th>
+                    <th class="text-end">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td class="fw-semibold">{{ usuario.username }}</td>
+                    <td>{{ usuario.get_full_name|default:"-" }}</td>
+                    <td>{{ usuario.email|default:"-" }}</td>
+                    <td>
+                        {% if usuario.is_staff %}
+                            <span class="badge text-bg-dark">Administrador</span>
+                        {% else %}
+                            <span class="badge text-bg-light text-dark border">Empleado</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if usuario.is_active %}
+                            <span class="badge text-bg-success">Activo</span>
+                        {% else %}
+                            <span class="badge text-bg-secondary">Inactivo</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ usuario.date_joined|date:"d/m/Y" }}</td>
+                    <td class="text-end">
+                        {% if usuario == user %}
+                            <span class="text-muted small">Tu usuario</span>
+                        {% else %}
+                        <form method="post" action="{% url 'cuentas:cambiar_estado' usuario.pk %}" class="d-inline">
+                            {% csrf_token %}
+                            {% if usuario.is_active %}
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Desactivar</button>
+                            {% else %}
+                                <button type="submit" class="btn btn-sm btn-outline-success">Activar</button>
+                            {% endif %}
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

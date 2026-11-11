@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Nuevo usuario | Hotel Paradise{% endblock %}
+
+{% block contenido %}
+<div class="cabecera-pagina">
+    <div>
+        <h1><i class="bi bi-person-plus me-1"></i>Nuevo usuario</h1>
+        <p>Crea una cuenta de acceso al sistema para un empleado del hotel.</p>
+    </div>
+    <a href="{% url 'cuentas:usuarios' %}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i>Regresar
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card">
+            <div class="card-body p-4">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    {% include 'includes/campos_formulario.html' %}
+                    <div class="d-flex gap-2 mt-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save me-1"></i>Crear usuario
+                        </button>
+                        <a href="{% url 'cuentas:usuarios' %}" class="btn btn-outline-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
