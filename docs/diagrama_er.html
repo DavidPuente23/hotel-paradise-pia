@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Diagrama Entidad-Relación - Hotel Paradise</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        body { font-family: "Segoe UI", sans-serif; background: #ffffff; margin: 0; padding: 30px; }
+        h1 { font-size: 22px; color: #1f3c5a; margin: 0 0 4px 0; }
+        p { color: #6c757d; font-size: 13px; margin: 0 0 20px 0; }
+        .mermaid { text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>Hotel Paradise &middot; Diagrama Entidad-Relación</h1>
+    <p>Base de datos SQLite &middot; Proyecto Final de Fundamentos de Desarrollo Web</p>
+
+    <pre class="mermaid">
+erDiagram
+    CLIENTE ||--o{ RESERVACION : realiza
+    HABITACION ||--o{ RESERVACION : "es reservada"
+
+    CLIENTE {
+        int id PK
+        string nombre
+        string apellidos
+        string correo UK
+        string telefono
+        datetime fecha_registro
+    }
+
+    HABITACION {
+        int id PK
+        int numero UK
+        string tipo
+        decimal precio_noche
+        int capacidad
+        boolean disponible
+        string imagen
+        string descripcion
+    }
+
+    RESERVACION {
+        int id PK
+        int cliente_id FK
+        int habitacion_id FK
+        date fecha_entrada
+        date fecha_salida
+        decimal total
+        string estado
+        datetime fecha_creacion
+    }
+    </pre>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#eef2f6',
+                primaryTextColor: '#1f3c5a',
+                primaryBorderColor: '#1f3c5a',
+                lineColor: '#2f5d8a',
+                fontSize: '15px'
+            }
+        });
+    </script>
+</body>
+</html>
