@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block titulo %}Tipos de habitación | Hotel Paradise{% endblock %}
+
+{% block contenido %}
+<div class="cabecera-pagina">
+    <div>
+        <h1><i class="bi bi-tags me-1"></i>Tipos de habitación</h1>
+        <p>Resumen de la administración de tipos: cantidad, disponibilidad y precio promedio.</p>
+    </div>
+    <a href="{% url 'habitaciones:lista' %}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i>Regresar
+    </a>
+</div>
+
+<div class="row g-3">
+    {% for fila in resumen %}
+    <div class="col-md-6 col-lg-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5 text-primary">{{ fila.tipo }}</h2>
+                <hr>
+                <div class="dato-etiqueta">Habitaciones</div>
+                <div class="dato-valor">{{ fila.total }}</div>
+
+                <div class="dato-etiqueta">Disponibles</div>
+                <div class="dato-valor">{{ fila.disponibles }}</div>
+
+                <div class="dato-etiqueta">Precio promedio</div>
+                <div class="dato-valor">${{ fila.precio_promedio|floatformat:2|intcomma }}</div>
+            </div>
+            <div class="card-footer bg-white border-0">
+                <a href="{% url 'habitaciones:lista' %}?tipo={{ fila.tipo }}" class="btn btn-sm btn-outline-primary w-100">
+                    Ver habitaciones
+                </a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="card"><div class="card-body text-center text-muted py-5">
+            Todavía no hay habitaciones registradas.
+        </div></div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

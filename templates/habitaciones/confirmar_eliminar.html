@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Eliminar habitación | Hotel Paradise{% endblock %}
+
+{% block contenido %}
+<div class="cabecera-pagina">
+    <div>
+        <h1><i class="bi bi-trash me-1"></i>Eliminar habitación</h1>
+        <p>Confirma que deseas eliminar este registro.</p>
+    </div>
+    <a href="{% url 'habitaciones:lista' %}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i>Regresar
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card border-danger">
+            <div class="card-body p-4">
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle me-1"></i>
+                    <strong>Regla de negocio:</strong> no se puede eliminar una habitación que tenga
+                    reservaciones activas.
+                </div>
+                <p class="mb-1">¿Seguro que quieres eliminar la siguiente habitación?</p>
+                <p class="fs-5 mb-4"><strong>{{ habitacion }}</strong></p>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash me-1"></i>Sí, eliminar
+                    </button>
+                    <a href="{% url 'habitaciones:detalle' habitacion.pk %}" class="btn btn-outline-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

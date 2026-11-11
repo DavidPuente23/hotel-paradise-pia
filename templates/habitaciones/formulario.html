@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block titulo %}{{ titulo }} | Hotel Paradise{% endblock %}
+
+{% block contenido %}
+<div class="cabecera-pagina">
+    <div>
+        <h1><i class="bi bi-door-open me-1"></i>{{ titulo }}</h1>
+        <p>Los campos marcados son obligatorios. El número de habitación no se puede repetir.</p>
+    </div>
+    <a href="{% url 'habitaciones:lista' %}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i>Regresar
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card">
+            <div class="card-body p-4">
+                <form method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    {% include 'includes/campos_formulario.html' %}
+                    <div class="d-flex gap-2 mt-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save me-1"></i>Guardar habitación
+                        </button>
+                        <a href="{% url 'habitaciones:lista' %}" class="btn btn-outline-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
