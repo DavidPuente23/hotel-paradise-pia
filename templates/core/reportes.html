@@ -6,11 +6,10 @@
 {% block contenido %}
 <div class="cabecera-pagina">
     <div>
-        <h1><i class="bi bi-graph-up me-1"></i>Reportes y estadísticas</h1>
+        <h1>Reportes y estadísticas</h1>
         <p>Información general de clientes, habitaciones e ingresos del hotel.</p>
     </div>
-    <a href="{% url 'core:exportar_csv' %}" class="btn btn-success">
-        <i class="bi bi-filetype-csv me-1"></i>Exportar reservaciones (CSV)
+    <a href="{% url 'core:exportar_csv' %}" class="btn btn-success">Exportar reservaciones (CSV)
     </a>
 </div>
 
@@ -44,9 +43,9 @@
 <div class="row g-3">
     <div class="col-lg-6">
         <div class="card h-100">
-            <div class="card-header"><i class="bi bi-pie-chart me-1"></i>Reservaciones por estado</div>
+            <div class="card-header">Reservaciones por estado</div>
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="table table-bordered table-striped mb-0">
                     <thead>
                         <tr><th>Estado</th><th class="text-center">Cantidad</th><th class="text-end">Ingresos</th></tr>
                     </thead>
@@ -68,9 +67,9 @@
 
     <div class="col-lg-6">
         <div class="card h-100">
-            <div class="card-header"><i class="bi bi-door-open me-1"></i>Reservaciones por tipo de habitación</div>
+            <div class="card-header">Reservaciones por tipo de habitación</div>
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="table table-bordered table-striped mb-0">
                     <thead>
                         <tr><th>Tipo</th><th class="text-center">Reservaciones</th><th class="text-end">Ingresos</th></tr>
                     </thead>
@@ -92,9 +91,9 @@
 
     <div class="col-lg-6">
         <div class="card h-100">
-            <div class="card-header"><i class="bi bi-calendar3 me-1"></i>Ingresos por mes</div>
+            <div class="card-header">Ingresos por mes</div>
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="table table-bordered table-striped mb-0">
                     <thead>
                         <tr><th>Mes</th><th class="text-center">Reservaciones</th><th class="text-end">Ingresos</th></tr>
                     </thead>
@@ -116,9 +115,9 @@
 
     <div class="col-lg-6">
         <div class="card h-100">
-            <div class="card-header"><i class="bi bi-star me-1"></i>Top 5 clientes</div>
+            <div class="card-header">Top 5 clientes</div>
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="table table-bordered table-striped mb-0">
                     <thead>
                         <tr><th>Cliente</th><th class="text-center">Reservaciones</th><th class="text-end">Gasto</th></tr>
                     </thead>
@@ -140,9 +139,9 @@
 
     <div class="col-12">
         <div class="card">
-            <div class="card-header"><i class="bi bi-trophy me-1"></i>Habitaciones más reservadas</div>
+            <div class="card-header">Habitaciones más reservadas</div>
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="table table-bordered table-striped mb-0">
                     <thead>
                         <tr><th>Habitación</th><th>Tipo</th><th>Precio por noche</th><th class="text-center">Reservaciones</th></tr>
                     </thead>

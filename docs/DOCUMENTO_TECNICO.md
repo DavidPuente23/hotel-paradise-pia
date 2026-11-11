@@ -320,11 +320,13 @@ y consulta de disponibilidad.
 dashboard principal.
 
 - `templates/base.html` concentra la barra de navegación, los mensajes, el pie de página y los
-  enlaces a Bootstrap 5, Bootstrap Icons y la hoja de estilos propia.
-- `static/css/estilos.css` define la paleta del hotel (azul marino y dorado), tarjetas,
-  tablas, botones y adaptaciones para móvil.
+  enlaces a Bootstrap 5 y a la hoja de estilos propia.
+- `static/css/estilos.css` solo ajusta detalles sencillos (tamaño de títulos, tablas y
+  fotografías); la mayor parte del estilo viene de las clases estándar de Bootstrap.
 - Los templates están organizados por aplicación y comparten includes para formularios,
   paginación y badges de estado.
+- Las pantallas de listado usan tablas de Bootstrap y un formulario de búsqueda en la parte
+  superior, sin componentes complicados.
 - El dashboard muestra seis indicadores y dos tablas de actividad reciente.
 
 ![Dashboard principal](capturas/02_dashboard.jpg)

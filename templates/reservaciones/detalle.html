@@ -6,18 +6,17 @@
 {% block contenido %}
 <div class="cabecera-pagina">
     <div>
-        <h1><i class="bi bi-calendar-check me-1"></i>Reservación #{{ reservacion.pk }}</h1>
+        <h1>Reservación #{{ reservacion.pk }}</h1>
         <p>Registrada el {{ reservacion.fecha_creacion|date:"d/m/Y H:i" }}</p>
     </div>
-    <a href="{% url 'reservaciones:lista' %}" class="btn btn-outline-secondary">
-        <i class="bi bi-arrow-left me-1"></i>Regresar
+    <a href="{% url 'reservaciones:lista' %}" class="btn btn-outline-secondary">Regresar
     </a>
 </div>
 
 <div class="row g-3">
     <div class="col-lg-6">
         <div class="card h-100">
-            <div class="card-header"><i class="bi bi-info-circle me-1"></i>Datos de la reservación</div>
+            <div class="card-header">Datos de la reservación</div>
             <div class="card-body">
                 <div class="dato-etiqueta">Estado</div>
                 <div class="dato-valor">
@@ -52,7 +51,7 @@
 
     <div class="col-lg-6">
         <div class="card h-100">
-            <div class="card-header"><i class="bi bi-cash-coin me-1"></i>Resumen de pago</div>
+            <div class="card-header">Resumen de pago</div>
             <div class="card-body">
                 <div class="dato-etiqueta">Precio por noche</div>
                 <div class="dato-valor">${{ reservacion.habitacion.precio_noche|floatformat:2|intcomma }} MXN</div>
@@ -67,14 +66,12 @@
 
                 <div class="d-flex flex-wrap gap-2">
                     {% if reservacion.estado != 'Cancelada' and reservacion.estado != 'Finalizada' %}
-                    <a href="{% url 'reservaciones:editar' reservacion.pk %}" class="btn btn-primary">
-                        <i class="bi bi-pencil me-1"></i>Modificar
+                    <a href="{% url 'reservaciones:editar' reservacion.pk %}" class="btn btn-primary">Modificar
                     </a>
                     <form method="post" action="{% url 'reservaciones:cancelar' reservacion.pk %}"
                           onsubmit="return confirm('¿Seguro que deseas cancelar esta reservación?');">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-outline-danger">
-                            <i class="bi bi-x-circle me-1"></i>Cancelar reservación
+                        <button type="submit" class="btn btn-outline-danger">Cancelar reservación
                         </button>
                     </form>
                     {% else %}

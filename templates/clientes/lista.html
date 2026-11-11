@@ -5,11 +5,10 @@
 {% block contenido %}
 <div class="cabecera-pagina">
     <div>
-        <h1><i class="bi bi-people me-1"></i>Clientes</h1>
+        <h1>Clientes</h1>
         <p>Registro y administración de los clientes del hotel.</p>
     </div>
-    <a href="{% url 'clientes:crear' %}" class="btn btn-primary">
-        <i class="bi bi-person-plus me-1"></i>Nuevo cliente
+    <a href="{% url 'clientes:crear' %}" class="btn btn-primary">Nuevo cliente
     </a>
 </div>
 
@@ -22,10 +21,8 @@
                        placeholder="Nombre, apellidos, correo o teléfono">
             </div>
             <div class="col-md-3 d-flex gap-2">
-                <button type="submit" class="btn btn-primary w-100"><i class="bi bi-search"></i></button>
-                <a href="{% url 'clientes:lista' %}" class="btn btn-outline-secondary w-100" title="Limpiar">
-                    <i class="bi bi-x-lg"></i>
-                </a>
+                <button type="submit" class="btn btn-primary w-100">Buscar</button>
+                <a href="{% url 'clientes:lista' %}" class="btn btn-outline-secondary w-100">Limpiar</a>
             </div>
         </form>
     </div>
@@ -33,11 +30,11 @@
 
 <div class="card">
     <div class="card-header d-flex justify-content-between">
-        <span><i class="bi bi-list-ul me-1"></i>Listado de clientes</span>
+        <span>Listado de clientes</span>
         <span class="text-muted small">{{ total }} registro(s)</span>
     </div>
     <div class="table-responsive">
-        <table class="table table-hover mb-0">
+        <table class="table table-bordered table-striped mb-0">
             <thead>
                 <tr>
                     <th>Nombre</th>

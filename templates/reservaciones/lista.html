@@ -5,15 +5,13 @@
 {% block contenido %}
 <div class="cabecera-pagina">
     <div>
-        <h1><i class="bi bi-calendar-check me-1"></i>Reservaciones</h1>
+        <h1>Reservaciones</h1>
         <p>Consulta, registra, modifica y cancela las reservaciones del hotel.</p>
     </div>
     <div class="d-flex gap-2">
-        <a href="{% url 'reservaciones:disponibilidad' %}" class="btn btn-outline-primary">
-            <i class="bi bi-search me-1"></i>Disponibilidad
+        <a href="{% url 'reservaciones:disponibilidad' %}" class="btn btn-outline-primary">Disponibilidad
         </a>
-        <a href="{% url 'reservaciones:crear' %}" class="btn btn-primary">
-            <i class="bi bi-plus-circle me-1"></i>Nueva reservación
+        <a href="{% url 'reservaciones:crear' %}" class="btn btn-primary">Nueva reservación
         </a>
     </div>
 </div>
@@ -45,19 +43,17 @@
                 </select>
             </div>
             <div class="col-md-2 d-flex gap-2">
-                <button type="submit" class="btn btn-primary w-100"><i class="bi bi-search"></i></button>
-                <a href="{% url 'reservaciones:lista' %}" class="btn btn-outline-secondary w-100" title="Limpiar">
-                    <i class="bi bi-x-lg"></i>
-                </a>
+                <button type="submit" class="btn btn-primary w-100">Buscar</button>
+                <a href="{% url 'reservaciones:lista' %}" class="btn btn-outline-secondary w-100">Limpiar</a>
             </div>
         </form>
     </div>
 </div>
 
 <div class="card">
-    <div class="card-header"><i class="bi bi-list-ul me-1"></i>Listado de reservaciones</div>
+    <div class="card-header">Listado de reservaciones</div>
     <div class="table-responsive">
-        <table class="table table-hover mb-0">
+        <table class="table table-bordered table-striped mb-0">
             <thead>
                 <tr>
                     <th>#</th>

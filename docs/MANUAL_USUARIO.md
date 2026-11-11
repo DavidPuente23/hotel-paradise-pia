@@ -111,8 +111,8 @@ El dashboard muestra:
 ### Consultar habitaciones
 
 1. Entrar a **Habitaciones** en el menú.
-2. Se muestra una tarjeta por habitación con fotografía, número, tipo, capacidad, precio y
-   disponibilidad.
+2. Se muestra una tabla con la fotografía, el número, el tipo, la capacidad, el precio y la
+   disponibilidad de cada habitación.
 
 ![Listado de habitaciones](capturas/03_habitaciones_lista.jpg)
 
@@ -120,8 +120,8 @@ El dashboard muestra:
 
 1. Escribir el número, tipo o descripción en el campo **Buscar**.
 2. Seleccionar un **Tipo** o una **Disponibilidad** si se desea.
-3. Presionar el botón de búsqueda.
-4. Para limpiar los filtros, presionar la **X**.
+3. Presionar el botón **Buscar**.
+4. Para limpiar los filtros, presionar **Limpiar**.
 
 ### Registrar una habitación
 

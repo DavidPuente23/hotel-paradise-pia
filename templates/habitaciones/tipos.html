@@ -6,43 +6,47 @@
 {% block contenido %}
 <div class="cabecera-pagina">
     <div>
-        <h1><i class="bi bi-tags me-1"></i>Tipos de habitación</h1>
+        <h1>Tipos de habitación</h1>
         <p>Resumen de la administración de tipos: cantidad, disponibilidad y precio promedio.</p>
     </div>
-    <a href="{% url 'habitaciones:lista' %}" class="btn btn-outline-secondary">
-        <i class="bi bi-arrow-left me-1"></i>Regresar
-    </a>
+    <a href="{% url 'habitaciones:lista' %}" class="btn btn-outline-secondary">Regresar</a>
 </div>
 
-<div class="row g-3">
-    {% for fila in resumen %}
-    <div class="col-md-6 col-lg-3">
-        <div class="card h-100">
-            <div class="card-body">
-                <h2 class="h5 text-primary">{{ fila.tipo }}</h2>
-                <hr>
-                <div class="dato-etiqueta">Habitaciones</div>
-                <div class="dato-valor">{{ fila.total }}</div>
-
-                <div class="dato-etiqueta">Disponibles</div>
-                <div class="dato-valor">{{ fila.disponibles }}</div>
-
-                <div class="dato-etiqueta">Precio promedio</div>
-                <div class="dato-valor">${{ fila.precio_promedio|floatformat:2|intcomma }}</div>
-            </div>
-            <div class="card-footer bg-white border-0">
-                <a href="{% url 'habitaciones:lista' %}?tipo={{ fila.tipo }}" class="btn btn-sm btn-outline-primary w-100">
-                    Ver habitaciones
-                </a>
-            </div>
-        </div>
+<div class="card">
+    <div class="card-header">Resumen por tipo</div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped mb-0">
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Habitaciones</th>
+                    <th>Disponibles</th>
+                    <th>Precio promedio</th>
+                    <th class="text-end">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fila in resumen %}
+                <tr>
+                    <td>{{ fila.tipo }}</td>
+                    <td>{{ fila.total }}</td>
+                    <td>{{ fila.disponibles }}</td>
+                    <td>${{ fila.precio_promedio|floatformat:2|intcomma }}</td>
+                    <td class="text-end">
+                        <a href="{% url 'habitaciones:lista' %}?tipo={{ fila.tipo }}" class="btn btn-sm btn-outline-primary">
+                            Ver habitaciones
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center text-muted py-4">
+                        Todavía no hay habitaciones registradas.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-    {% empty %}
-    <div class="col-12">
-        <div class="card"><div class="card-body text-center text-muted py-5">
-            Todavía no hay habitaciones registradas.
-        </div></div>
-    </div>
-    {% endfor %}
 </div>
 {% endblock %}

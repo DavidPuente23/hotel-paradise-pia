@@ -6,83 +6,61 @@
 {% block contenido %}
 <div class="cabecera-pagina">
     <div>
-        <h1><i class="bi bi-speedometer2 me-1"></i>Dashboard</h1>
+        <h1>Dashboard</h1>
         <p>Resumen general del hotel &middot; {{ hoy|date:"d \d\e F \d\e Y" }}</p>
     </div>
     <div class="d-flex gap-2">
-        <a href="{% url 'reservaciones:crear' %}" class="btn btn-primary">
-            <i class="bi bi-plus-circle me-1"></i>Nueva reservación
-        </a>
-        <a href="{% url 'reservaciones:disponibilidad' %}" class="btn btn-outline-primary">
-            <i class="bi bi-search me-1"></i>Disponibilidad
-        </a>
+        <a href="{% url 'reservaciones:crear' %}" class="btn btn-primary">Nueva reservación</a>
+        <a href="{% url 'reservaciones:disponibilidad' %}" class="btn btn-outline-primary">Disponibilidad</a>
     </div>
 </div>
 
 <div class="row g-3 mb-4">
     <div class="col-md-4">
         <div class="card tarjeta-estadistica h-100">
-            <div class="card-body d-flex justify-content-between align-items-center">
-                <div>
-                    <div class="valor">{{ total_clientes }}</div>
-                    <div class="etiqueta">Total de clientes</div>
-                </div>
-                <i class="bi bi-people icono"></i>
+            <div class="card-body">
+                <div class="valor">{{ total_clientes }}</div>
+                <div class="etiqueta">Total de clientes</div>
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="card tarjeta-estadistica h-100">
-            <div class="card-body d-flex justify-content-between align-items-center">
-                <div>
-                    <div class="valor">{{ total_habitaciones }}</div>
-                    <div class="etiqueta">Total de habitaciones</div>
-                </div>
-                <i class="bi bi-door-open icono"></i>
+            <div class="card-body">
+                <div class="valor">{{ total_habitaciones }}</div>
+                <div class="etiqueta">Total de habitaciones</div>
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="card tarjeta-estadistica h-100">
-            <div class="card-body d-flex justify-content-between align-items-center">
-                <div>
-                    <div class="valor">{{ total_reservaciones }}</div>
-                    <div class="etiqueta">Total de reservaciones</div>
-                </div>
-                <i class="bi bi-calendar-check icono"></i>
+            <div class="card-body">
+                <div class="valor">{{ total_reservaciones }}</div>
+                <div class="etiqueta">Total de reservaciones</div>
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="card tarjeta-estadistica h-100">
-            <div class="card-body d-flex justify-content-between align-items-center">
-                <div>
-                    <div class="valor">{{ habitaciones_disponibles }}</div>
-                    <div class="etiqueta">Habitaciones disponibles</div>
-                </div>
-                <i class="bi bi-check2-circle icono"></i>
+            <div class="card-body">
+                <div class="valor">{{ habitaciones_disponibles }}</div>
+                <div class="etiqueta">Habitaciones disponibles</div>
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="card tarjeta-estadistica h-100">
-            <div class="card-body d-flex justify-content-between align-items-center">
-                <div>
-                    <div class="valor">${{ ingresos|floatformat:2|intcomma }}</div>
-                    <div class="etiqueta">Ingresos generados (MXN)</div>
-                </div>
-                <i class="bi bi-cash-coin icono"></i>
+            <div class="card-body">
+                <div class="valor">${{ ingresos|floatformat:2|intcomma }}</div>
+                <div class="etiqueta">Ingresos generados (MXN)</div>
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="card tarjeta-estadistica h-100">
-            <div class="card-body d-flex justify-content-between align-items-center">
-                <div>
-                    <div class="valor">{{ porcentaje_ocupacion }}%</div>
-                    <div class="etiqueta">Ocupación de hoy ({{ ocupadas_hoy }} habitaciones)</div>
-                </div>
-                <i class="bi bi-bar-chart icono"></i>
+            <div class="card-body">
+                <div class="valor">{{ porcentaje_ocupacion }}%</div>
+                <div class="etiqueta">Ocupación de hoy ({{ ocupadas_hoy }} habitaciones)</div>
             </div>
         </div>
     </div>
@@ -92,11 +70,11 @@
     <div class="col-lg-7">
         <div class="card h-100">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <span><i class="bi bi-clock-history me-1"></i>Últimas reservaciones</span>
+                <span>Últimas reservaciones</span>
                 <a href="{% url 'reservaciones:lista' %}" class="btn btn-sm btn-outline-primary">Ver todas</a>
             </div>
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="table table-bordered table-striped mb-0">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -128,9 +106,7 @@
 
     <div class="col-lg-5">
         <div class="card h-100">
-            <div class="card-header">
-                <i class="bi bi-calendar-event me-1"></i>Próximas llegadas
-            </div>
+            <div class="card-header">Próximas llegadas</div>
             <div class="list-group list-group-flush">
                 {% for reservacion in proximas_entradas %}
                 <a href="{% url 'reservaciones:detalle' reservacion.pk %}"

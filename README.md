@@ -36,8 +36,7 @@ disponibilidad, dashboard con estadísticas y reportes.
 | Python 3.11 | Lenguaje de programación |
 | Django 5.2 | Framework web (MTV) |
 | SQLite | Base de datos |
-| Bootstrap 5.3 | Interfaz gráfica responsiva |
-| Bootstrap Icons | Iconografía |
+| Bootstrap 5.3 | Interfaz sencilla y responsiva |
 | Pillow | Procesamiento de imágenes |
 | HTML / CSS / JavaScript | Templates y cálculo visual del total |
 

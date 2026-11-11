@@ -5,11 +5,10 @@
 {% block contenido %}
 <div class="cabecera-pagina">
     <div>
-        <h1><i class="bi bi-door-open me-1"></i>Habitación {{ habitacion.numero }}</h1>
+        <h1>Habitación {{ habitacion.numero }}</h1>
         <p>Detalle de la habitación y sus reservaciones.</p>
     </div>
-    <a href="{% url 'habitaciones:lista' %}" class="btn btn-outline-secondary">
-        <i class="bi bi-arrow-left me-1"></i>Regresar
+    <a href="{% url 'habitaciones:lista' %}" class="btn btn-outline-secondary">Regresar
     </a>
 </div>
 
@@ -19,7 +18,7 @@
             {% if habitacion.imagen %}
                 <img src="{{ habitacion.imagen.url }}" class="foto-habitacion" alt="Habitación {{ habitacion.numero }}">
             {% else %}
-                <div class="foto-placeholder"><i class="bi bi-image"></i></div>
+                <div class="foto-placeholder"></div>
             {% endif %}
             <div class="card-body">
                 <h2 class="h5">{{ habitacion.tipo }}</h2>
@@ -42,11 +41,9 @@
                 <div class="dato-valor">{{ reservaciones|length }}</div>
 
                 <div class="d-flex gap-2 mt-3">
-                    <a href="{% url 'habitaciones:editar' habitacion.pk %}" class="btn btn-sm btn-primary">
-                        <i class="bi bi-pencil me-1"></i>Editar
+                    <a href="{% url 'habitaciones:editar' habitacion.pk %}" class="btn btn-sm btn-primary">Editar
                     </a>
-                    <a href="{% url 'habitaciones:eliminar' habitacion.pk %}" class="btn btn-sm btn-outline-danger">
-                        <i class="bi bi-trash me-1"></i>Eliminar
+                    <a href="{% url 'habitaciones:eliminar' habitacion.pk %}" class="btn btn-sm btn-outline-danger">Eliminar
                     </a>
                 </div>
             </div>
@@ -56,13 +53,12 @@
     <div class="col-lg-8">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <span><i class="bi bi-calendar-check me-1"></i>Reservaciones de esta habitación</span>
-                <a href="{% url 'reservaciones:crear' %}?habitacion={{ habitacion.pk }}" class="btn btn-sm btn-primary">
-                    <i class="bi bi-plus-circle me-1"></i>Reservar
+                <span>Reservaciones de esta habitación</span>
+                <a href="{% url 'reservaciones:crear' %}?habitacion={{ habitacion.pk }}" class="btn btn-sm btn-primary">Reservar
                 </a>
             </div>
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="table table-bordered table-striped mb-0">
                     <thead>
                         <tr>
                             <th>#</th>
