@@ -373,7 +373,7 @@ fechas y estado.
 - Búsquedas combinadas con varios filtros.
 - Generación automática de imágenes de demostración con Pillow.
 - Comando `cargar_demo` para inicializar el sistema con datos de prueba.
-- 19 pruebas automatizadas.
+- 28 pruebas automatizadas.
 - Exportación de reportes a CSV.
 - Documentación técnica, manual de usuario y guion de video.
 
@@ -387,7 +387,7 @@ Las pruebas se ejecutan con:
 python manage.py test
 ```
 
-Resultado: **19 pruebas ejecutadas correctamente (OK)**.
+Resultado: **28 pruebas ejecutadas correctamente (OK)**.
 
 | Módulo | Prueba | Resultado |
 | --- | --- | --- |

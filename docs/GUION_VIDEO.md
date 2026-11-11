@@ -82,7 +82,7 @@ Mostrar usuarios y el admin.
 
 "El proyecto cumple con los requerimientos: modelos y relaciones uno a muchos, CRUDs completos,
 validación de fechas y disponibilidad, formularios con validaciones, Bootstrap, dashboard,
-reportes y autenticación. Se probó con 19 pruebas automatizadas que verifican las reglas de
+reportes y autenticación. Se probó con 28 pruebas automatizadas que verifican las reglas de
 negocio. La documentación técnica y el manual de usuario se incluyen en la carpeta docs.
 Gracias por su atención."
 

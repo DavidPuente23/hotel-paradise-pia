@@ -80,7 +80,7 @@ También se puede crear un superusuario propio con `python manage.py createsuper
 
 ## Pruebas
 
-El proyecto incluye 19 pruebas funcionales (modelos, formularios, reglas de negocio,
+El proyecto incluye 28 pruebas funcionales (modelos, formularios, reglas de negocio,
 vistas y seguridad):
 
 ```bash
