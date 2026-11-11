@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Eliminar cliente | Hotel Paradise{% endblock %}
+
+{% block contenido %}
+<div class="cabecera-pagina">
+    <div>
+        <h1><i class="bi bi-trash me-1"></i>Eliminar cliente</h1>
+        <p>Confirma que deseas eliminar este registro.</p>
+    </div>
+    <a href="{% url 'clientes:lista' %}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i>Regresar
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card border-danger">
+            <div class="card-body p-4">
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle me-1"></i>
+                    No es posible eliminar clientes que tengan reservaciones registradas.
+                </div>
+                <p class="mb-1">¿Seguro que quieres eliminar al cliente?</p>
+                <p class="fs-5 mb-4"><strong>{{ cliente }}</strong> &middot; {{ cliente.correo }}</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash me-1"></i>Sí, eliminar
+                    </button>
+                    <a href="{% url 'clientes:detalle' cliente.pk %}" class="btn btn-outline-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
