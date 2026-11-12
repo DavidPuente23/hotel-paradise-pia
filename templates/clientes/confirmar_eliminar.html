@@ -8,27 +8,21 @@
         <h1>Eliminar cliente</h1>
         <p>Confirma que deseas eliminar este registro.</p>
     </div>
-    <a href="{% url 'clientes:lista' %}" class="btn btn-outline-secondary">Regresar
-    </a>
+    <a href="{% url 'clientes:lista' %}" class="btn btn-outline-secondary">Regresar</a>
 </div>
 
-<div class="row justify-content-center">
-    <div class="col-lg-6">
-        <div class="card border-danger">
-            <div class="card-body p-4">
-                <div class="alert alert-warning">
-                    No es posible eliminar clientes que tengan reservaciones registradas.
-                </div>
-                <p class="mb-1">¿Seguro que quieres eliminar al cliente?</p>
-                <p class="fs-5 mb-4"><strong>{{ cliente }}</strong> &middot; {{ cliente.correo }}</p>
-                <form method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">Sí, eliminar
-                    </button>
-                    <a href="{% url 'clientes:detalle' cliente.pk %}" class="btn btn-outline-secondary">Cancelar</a>
-                </form>
-            </div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="alert alert-warning">
+            No es posible eliminar clientes que tengan reservaciones registradas.
         </div>
+        <p>¿Seguro que quieres eliminar al cliente?</p>
+        <p class="fs-5"><strong>{{ cliente }}</strong> &middot; {{ cliente.correo }}</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+            <a href="{% url 'clientes:detalle' cliente.pk %}" class="btn btn-outline-secondary">Cancelar</a>
+        </form>
     </div>
 </div>
 {% endblock %}

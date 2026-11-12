@@ -9,77 +9,46 @@
         <h1>Reservación #{{ reservacion.pk }}</h1>
         <p>Registrada el {{ reservacion.fecha_creacion|date:"d/m/Y H:i" }}</p>
     </div>
-    <a href="{% url 'reservaciones:lista' %}" class="btn btn-outline-secondary">Regresar
-    </a>
+    <a href="{% url 'reservaciones:lista' %}" class="btn btn-outline-secondary">Regresar</a>
 </div>
 
-<div class="row g-3">
-    <div class="col-lg-6">
-        <div class="card h-100">
-            <div class="card-header">Datos de la reservación</div>
-            <div class="card-body">
-                <div class="dato-etiqueta">Estado</div>
-                <div class="dato-valor">
-                    {% include 'includes/badge_estado.html' with estado=reservacion.estado %}
-                </div>
-
-                <div class="dato-etiqueta">Cliente</div>
-                <div class="dato-valor">
-                    <a href="{% url 'clientes:detalle' reservacion.cliente.pk %}">{{ reservacion.cliente }}</a>
-                </div>
-
-                <div class="dato-etiqueta">Correo / Teléfono</div>
-                <div class="dato-valor">
-                    {{ reservacion.cliente.correo }} &middot; {{ reservacion.cliente.telefono }}
-                </div>
-
-                <div class="dato-etiqueta">Habitación</div>
-                <div class="dato-valor">
-                    <a href="{% url 'habitaciones:detalle' reservacion.habitacion.pk %}">
-                        Habitación {{ reservacion.habitacion.numero }} - {{ reservacion.habitacion.tipo }}
-                    </a>
-                </div>
-
-                <div class="dato-etiqueta">Fechas</div>
-                <div class="dato-valor">
-                    {{ reservacion.fecha_entrada|date:"d/m/Y" }} al {{ reservacion.fecha_salida|date:"d/m/Y" }}
-                    ({{ reservacion.noches }} noche{{ reservacion.noches|pluralize:"s" }})
-                </div>
-            </div>
-        </div>
+<div class="row">
+    <div class="col-md-6">
+        <p><strong>Estado:</strong> {{ reservacion.estado }}</p>
+        <p><strong>Cliente:</strong>
+            <a href="{% url 'clientes:detalle' reservacion.cliente.pk %}">{{ reservacion.cliente }}</a>
+        </p>
+        <p><strong>Correo / Teléfono:</strong><br>
+            {{ reservacion.cliente.correo }} &middot; {{ reservacion.cliente.telefono }}
+        </p>
+        <p><strong>Habitación:</strong>
+            <a href="{% url 'habitaciones:detalle' reservacion.habitacion.pk %}">
+                Habitación {{ reservacion.habitacion.numero }} - {{ reservacion.habitacion.tipo }}
+            </a>
+        </p>
+        <p><strong>Fechas:</strong><br>
+            {{ reservacion.fecha_entrada|date:"d/m/Y" }} al {{ reservacion.fecha_salida|date:"d/m/Y" }}
+            ({{ reservacion.noches }} noche{{ reservacion.noches|pluralize:"s" }})
+        </p>
     </div>
 
-    <div class="col-lg-6">
-        <div class="card h-100">
-            <div class="card-header">Resumen de pago</div>
-            <div class="card-body">
-                <div class="dato-etiqueta">Precio por noche</div>
-                <div class="dato-valor">${{ reservacion.habitacion.precio_noche|floatformat:2|intcomma }} MXN</div>
+    <div class="col-md-6">
+        <p><strong>Precio por noche:</strong> ${{ reservacion.habitacion.precio_noche|floatformat:2|intcomma }} MXN</p>
+        <p><strong>Noches:</strong> {{ reservacion.noches }}</p>
+        <p><strong>Total:</strong> ${{ reservacion.total|floatformat:2|intcomma }} MXN</p>
 
-                <div class="dato-etiqueta">Noches</div>
-                <div class="dato-valor">{{ reservacion.noches }}</div>
+        <hr>
 
-                <div class="dato-etiqueta">Total</div>
-                <div class="dato-valor fs-4 text-primary">${{ reservacion.total|floatformat:2|intcomma }} MXN</div>
-
-                <hr>
-
-                <div class="d-flex flex-wrap gap-2">
-                    {% if reservacion.estado != 'Cancelada' and reservacion.estado != 'Finalizada' %}
-                    <a href="{% url 'reservaciones:editar' reservacion.pk %}" class="btn btn-primary">Modificar
-                    </a>
-                    <form method="post" action="{% url 'reservaciones:cancelar' reservacion.pk %}"
-                          onsubmit="return confirm('¿Seguro que deseas cancelar esta reservación?');">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-outline-danger">Cancelar reservación
-                        </button>
-                    </form>
-                    {% else %}
-                    <span class="text-muted">Esta reservación ya no se puede modificar.</span>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
+        {% if reservacion.estado != 'Cancelada' and reservacion.estado != 'Finalizada' %}
+        <a href="{% url 'reservaciones:editar' reservacion.pk %}" class="btn btn-primary">Modificar</a>
+        <form method="post" action="{% url 'reservaciones:cancelar' reservacion.pk %}" class="d-inline"
+              onsubmit="return confirm('¿Seguro que deseas cancelar esta reservación?');">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger">Cancelar reservación</button>
+        </form>
+        {% else %}
+        <p class="text-muted">Esta reservación ya no se puede modificar.</p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

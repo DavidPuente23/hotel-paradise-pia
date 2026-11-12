@@ -15,92 +15,76 @@
     </div>
 </div>
 
-<div class="card mb-3">
-    <div class="card-body">
-        <form method="get" class="row g-2 align-items-end">
-            <div class="col-md-4">
-                <label class="form-label" for="q">Buscar</label>
-                <input type="text" class="form-control" id="q" name="q" value="{{ q }}"
-                       placeholder="Número, tipo o descripción">
-            </div>
-            <div class="col-md-3">
-                <label class="form-label" for="tipo">Tipo</label>
-                <select class="form-select" id="tipo" name="tipo">
-                    <option value="">Todos los tipos</option>
-                    {% for valor, etiqueta in tipos %}
-                    <option value="{{ valor }}" {% if tipo == valor %}selected{% endif %}>{{ etiqueta }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-md-3">
-                <label class="form-label" for="disponible">Disponibilidad</label>
-                <select class="form-select" id="disponible" name="disponible">
-                    <option value="">Todas</option>
-                    <option value="1" {% if disponible == '1' %}selected{% endif %}>Disponibles</option>
-                    <option value="0" {% if disponible == '0' %}selected{% endif %}>No disponibles</option>
-                </select>
-            </div>
-            <div class="col-md-2 d-flex gap-2">
-                <button type="submit" class="btn btn-primary w-100">Buscar</button>
-                <a href="{% url 'habitaciones:lista' %}" class="btn btn-outline-secondary w-100">Limpiar</a>
-            </div>
-        </form>
+<form method="get" class="row g-2 align-items-end mb-3">
+    <div class="col-md-4">
+        <label class="form-label" for="q">Buscar</label>
+        <input type="text" class="form-control" id="q" name="q" value="{{ q }}"
+               placeholder="Número, tipo o descripción">
     </div>
-</div>
+    <div class="col-md-3">
+        <label class="form-label" for="tipo">Tipo</label>
+        <select class="form-select" id="tipo" name="tipo">
+            <option value="">Todos los tipos</option>
+            {% for valor, etiqueta in tipos %}
+            <option value="{{ valor }}" {% if tipo == valor %}selected{% endif %}>{{ etiqueta }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-3">
+        <label class="form-label" for="disponible">Disponibilidad</label>
+        <select class="form-select" id="disponible" name="disponible">
+            <option value="">Todas</option>
+            <option value="1" {% if disponible == '1' %}selected{% endif %}>Disponibles</option>
+            <option value="0" {% if disponible == '0' %}selected{% endif %}>No disponibles</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">Buscar</button>
+    </div>
+</form>
 
-<div class="card">
-    <div class="card-header">Listado de habitaciones</div>
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped mb-0">
-            <thead>
-                <tr>
-                    <th>Foto</th>
-                    <th>Número</th>
-                    <th>Tipo</th>
-                    <th>Capacidad</th>
-                    <th>Precio por noche</th>
-                    <th>Estado</th>
-                    <th class="text-end">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for habitacion in pagina %}
-                <tr>
-                    <td>
-                        {% if habitacion.imagen %}
-                            <img src="{{ habitacion.imagen.url }}" class="foto-miniatura" alt="Habitación {{ habitacion.numero }}">
-                        {% else %}
-                            <span class="text-muted small">Sin foto</span>
-                        {% endif %}
-                    </td>
-                    <td><a href="{% url 'habitaciones:detalle' habitacion.pk %}">{{ habitacion.numero }}</a></td>
-                    <td>{{ habitacion.tipo }}</td>
-                    <td>{{ habitacion.capacidad }} personas</td>
-                    <td>${{ habitacion.precio_noche|floatformat:2|intcomma }}</td>
-                    <td>
-                        {% if habitacion.disponible %}
-                            <span class="badge text-bg-success">Disponible</span>
-                        {% else %}
-                            <span class="badge text-bg-secondary">No disponible</span>
-                        {% endif %}
-                    </td>
-                    <td class="text-end text-nowrap">
-                        <a href="{% url 'habitaciones:detalle' habitacion.pk %}" class="btn btn-sm btn-outline-primary">Ver</a>
-                        <a href="{% url 'habitaciones:editar' habitacion.pk %}" class="btn btn-sm btn-outline-secondary">Editar</a>
-                        <a href="{% url 'habitaciones:eliminar' habitacion.pk %}" class="btn btn-sm btn-outline-danger">Eliminar</a>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="7" class="text-center text-muted py-4">
-                        No se encontraron habitaciones con esos filtros.
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Foto</th>
+            <th>Número</th>
+            <th>Tipo</th>
+            <th>Capacidad</th>
+            <th>Precio por noche</th>
+            <th>Disponible</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for habitacion in pagina %}
+        <tr>
+            <td>
+                {% if habitacion.imagen %}
+                    <img src="{{ habitacion.imagen.url }}" class="foto-miniatura" alt="Habitación {{ habitacion.numero }}">
+                {% else %}
+                    Sin foto
+                {% endif %}
+            </td>
+            <td><a href="{% url 'habitaciones:detalle' habitacion.pk %}">{{ habitacion.numero }}</a></td>
+            <td>{{ habitacion.tipo }}</td>
+            <td>{{ habitacion.capacidad }} personas</td>
+            <td>${{ habitacion.precio_noche|floatformat:2|intcomma }}</td>
+            <td>{% if habitacion.disponible %}Sí{% else %}No{% endif %}</td>
+            <td>
+                <a href="{% url 'habitaciones:detalle' habitacion.pk %}" class="btn btn-sm btn-outline-primary">Ver</a>
+                <a href="{% url 'habitaciones:editar' habitacion.pk %}" class="btn btn-sm btn-outline-secondary">Editar</a>
+                <a href="{% url 'habitaciones:eliminar' habitacion.pk %}" class="btn btn-sm btn-outline-danger">Eliminar</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7" class="text-center text-muted py-4">
+                No se encontraron habitaciones con esos filtros.
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
 {% include 'includes/paginacion.html' with pagina=pagina querystring=querystring %}
 {% endblock %}

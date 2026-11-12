@@ -323,8 +323,8 @@ dashboard principal.
   enlaces a Bootstrap 5 y a la hoja de estilos propia.
 - `static/css/estilos.css` solo ajusta detalles sencillos (tamaño de títulos, tablas y
   fotografías); la mayor parte del estilo viene de las clases estándar de Bootstrap.
-- Los templates están organizados por aplicación y comparten includes para formularios,
-  paginación y badges de estado.
+- Los templates están organizados por aplicación y comparten un include para los formularios y
+  otro para la paginación.
 - Las pantallas de listado usan tablas de Bootstrap y un formulario de búsqueda en la parte
   superior, sin componentes complicados.
 - El dashboard muestra seis indicadores y dos tablas de actividad reciente.

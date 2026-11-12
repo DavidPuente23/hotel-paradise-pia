@@ -8,88 +8,62 @@
         <h1>Habitación {{ habitacion.numero }}</h1>
         <p>Detalle de la habitación y sus reservaciones.</p>
     </div>
-    <a href="{% url 'habitaciones:lista' %}" class="btn btn-outline-secondary">Regresar
-    </a>
+    <a href="{% url 'habitaciones:lista' %}" class="btn btn-outline-secondary">Regresar</a>
 </div>
 
-<div class="row g-3">
-    <div class="col-lg-4">
-        <div class="card">
-            {% if habitacion.imagen %}
-                <img src="{{ habitacion.imagen.url }}" class="foto-habitacion" alt="Habitación {{ habitacion.numero }}">
-            {% else %}
-                <div class="foto-placeholder"></div>
-            {% endif %}
-            <div class="card-body">
-                <h2 class="h5">{{ habitacion.tipo }}</h2>
-                <p class="mb-2">
-                    {% if habitacion.disponible %}
-                        <span class="badge text-bg-success">Disponible</span>
-                    {% else %}
-                        <span class="badge text-bg-secondary">No disponible</span>
-                    {% endif %}
-                </p>
-                <p class="text-muted">{{ habitacion.descripcion|default:"Sin descripción registrada." }}</p>
-                <hr>
-                <div class="dato-etiqueta">Precio por noche</div>
-                <div class="dato-valor">${{ habitacion.precio_noche|floatformat:2 }} MXN</div>
+<div class="row">
+    <div class="col-md-4">
+        {% if habitacion.imagen %}
+            <img src="{{ habitacion.imagen.url }}" class="foto-habitacion" alt="Habitación {{ habitacion.numero }}">
+        {% endif %}
 
-                <div class="dato-etiqueta">Capacidad</div>
-                <div class="dato-valor">{{ habitacion.capacidad }} personas</div>
+        <h2 class="h5 mt-3">{{ habitacion.tipo }}</h2>
+        <p><strong>Disponible:</strong> {% if habitacion.disponible %}Sí{% else %}No{% endif %}</p>
+        <p>{{ habitacion.descripcion|default:"Sin descripción registrada." }}</p>
+        <p><strong>Precio por noche:</strong> ${{ habitacion.precio_noche|floatformat:2 }} MXN</p>
+        <p><strong>Capacidad:</strong> {{ habitacion.capacidad }} personas</p>
+        <p><strong>Reservaciones registradas:</strong> {{ reservaciones|length }}</p>
 
-                <div class="dato-etiqueta">Reservaciones registradas</div>
-                <div class="dato-valor">{{ reservaciones|length }}</div>
-
-                <div class="d-flex gap-2 mt-3">
-                    <a href="{% url 'habitaciones:editar' habitacion.pk %}" class="btn btn-sm btn-primary">Editar
-                    </a>
-                    <a href="{% url 'habitaciones:eliminar' habitacion.pk %}" class="btn btn-sm btn-outline-danger">Eliminar
-                    </a>
-                </div>
-            </div>
-        </div>
+        <a href="{% url 'habitaciones:editar' habitacion.pk %}" class="btn btn-sm btn-primary">Editar</a>
+        <a href="{% url 'habitaciones:eliminar' habitacion.pk %}" class="btn btn-sm btn-outline-danger">Eliminar</a>
     </div>
 
-    <div class="col-lg-8">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <span>Reservaciones de esta habitación</span>
-                <a href="{% url 'reservaciones:crear' %}?habitacion={{ habitacion.pk }}" class="btn btn-sm btn-primary">Reservar
-                </a>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped mb-0">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Cliente</th>
-                            <th>Entrada</th>
-                            <th>Salida</th>
-                            <th>Total</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for reservacion in reservaciones %}
-                        <tr>
-                            <td><a href="{% url 'reservaciones:detalle' reservacion.pk %}">{{ reservacion.pk }}</a></td>
-                            <td>{{ reservacion.cliente }}</td>
-                            <td>{{ reservacion.fecha_entrada|date:"d/m/Y" }}</td>
-                            <td>{{ reservacion.fecha_salida|date:"d/m/Y" }}</td>
-                            <td>${{ reservacion.total|floatformat:2 }}</td>
-                            <td>{% include 'includes/badge_estado.html' with estado=reservacion.estado %}</td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="6" class="text-center text-muted py-4">
-                                Esta habitación todavía no tiene reservaciones.
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+    <div class="col-md-8">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="h5">Reservaciones de esta habitación</h2>
+            <a href="{% url 'reservaciones:crear' %}?habitacion={{ habitacion.pk }}" class="btn btn-sm btn-primary">Reservar</a>
         </div>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Cliente</th>
+                    <th>Entrada</th>
+                    <th>Salida</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reservacion in reservaciones %}
+                <tr>
+                    <td><a href="{% url 'reservaciones:detalle' reservacion.pk %}">{{ reservacion.pk }}</a></td>
+                    <td>{{ reservacion.cliente }}</td>
+                    <td>{{ reservacion.fecha_entrada|date:"d/m/Y" }}</td>
+                    <td>{{ reservacion.fecha_salida|date:"d/m/Y" }}</td>
+                    <td>${{ reservacion.total|floatformat:2 }}</td>
+                    <td>{{ reservacion.estado }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center text-muted py-4">
+                        Esta habitación todavía no tiene reservaciones.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 {% endblock %}

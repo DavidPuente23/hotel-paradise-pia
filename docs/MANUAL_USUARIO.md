@@ -92,7 +92,8 @@ En la barra superior se encuentran los accesos a:
 - **Disponibilidad:** consulta de habitaciones libres.
 - **Reportes:** estadísticas y exportación.
 - **Usuarios:** solo visible para administradores.
-- **Menú del usuario:** cambiar contraseña, abrir Django Admin y cerrar sesión.
+- **Contraseña:** cambiar la contraseña del usuario actual.
+- **Salir (usuario):** cerrar la sesión.
 
 El dashboard muestra:
 
@@ -282,13 +283,8 @@ para una nueva reservación.
 
 1. Entrar a **Reportes** en el menú.
 2. Se muestran los ingresos totales, las reservaciones registradas y los clientes.
-3. Revisar las tablas:
-
-   - Reservaciones por estado.
-   - Reservaciones por tipo de habitación.
-   - Ingresos por mes.
-   - Top 5 clientes.
-   - Habitaciones más reservadas.
+3. Revisar las tablas de reservaciones por estado, por tipo de habitación, ingresos por mes,
+   top 5 clientes y habitaciones más reservadas.
 
 ![Reportes y estadísticas](capturas/09_reportes.jpg)
 
@@ -324,17 +320,16 @@ para una nueva reservación.
 
 ### Cambiar la contraseña
 
-1. Abrir el menú del usuario (arriba a la derecha).
-2. Seleccionar **Cambiar contraseña**.
-3. Capturar la contraseña actual y la nueva dos veces.
-4. Guardar.
+1. Presionar **Contraseña** en la barra superior.
+2. Capturar la contraseña actual y la nueva dos veces.
+3. Guardar.
 
 ---
 
 ## 10. Panel de administración de Django
 
-1. Abrir el menú del usuario y seleccionar **Django Admin**.
-2. También se puede entrar desde <http://127.0.0.1:8000/admin/> con un usuario administrador.
+1. Escribir la dirección <http://127.0.0.1:8000/admin/> en el navegador.
+2. Iniciar sesión con un usuario administrador.
 
 ![Panel de administración](capturas/12_admin.jpg)
 
@@ -345,9 +340,8 @@ con las herramientas propias de Django.
 
 ## 11. Cerrar sesión
 
-1. Abrir el menú del usuario.
-2. Seleccionar **Cerrar sesión**.
-3. El sistema regresa a la pantalla de inicio de sesión.
+1. Presionar **Salir (usuario)** en la barra superior.
+2. El sistema regresa a la pantalla de inicio de sesión.
 
 ---
 
@@ -359,7 +353,7 @@ con las herramientas propias de Django.
 | La página no carga | El servidor no está encendido | Ejecutar `python manage.py runserver`. |
 | Las imágenes no aparecen | Faltan archivos en `media/` | Ejecutar `python manage.py cargar_demo` o volver a subir la imagen. |
 | Error "no such table" | No se aplicaron las migraciones | Ejecutar `python manage.py migrate`. |
-| No veo el menú Usuarios | El usuario no es administrador | Entrar con una cuenta con permisos de administrador. |
+| No veo el enlace Usuarios | El usuario no es administrador | Entrar con una cuenta con permisos de administrador. |
 | No puedo guardar una reservación | Fechas inválidas o habitación ocupada | Revisar las fechas y consultar la disponibilidad. |
 
 ---

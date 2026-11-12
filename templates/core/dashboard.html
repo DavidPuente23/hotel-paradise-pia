@@ -15,118 +15,86 @@
     </div>
 </div>
 
-<div class="row g-3 mb-4">
-    <div class="col-md-4">
-        <div class="card tarjeta-estadistica h-100">
-            <div class="card-body">
-                <div class="valor">{{ total_clientes }}</div>
-                <div class="etiqueta">Total de clientes</div>
-            </div>
-        </div>
+<div class="row mb-4">
+    <div class="col-md-2 col-6 mb-3">
+        <div class="fs-4 fw-bold">{{ total_clientes }}</div>
+        <div class="text-muted small">Clientes</div>
     </div>
-    <div class="col-md-4">
-        <div class="card tarjeta-estadistica h-100">
-            <div class="card-body">
-                <div class="valor">{{ total_habitaciones }}</div>
-                <div class="etiqueta">Total de habitaciones</div>
-            </div>
-        </div>
+    <div class="col-md-2 col-6 mb-3">
+        <div class="fs-4 fw-bold">{{ total_habitaciones }}</div>
+        <div class="text-muted small">Habitaciones</div>
     </div>
-    <div class="col-md-4">
-        <div class="card tarjeta-estadistica h-100">
-            <div class="card-body">
-                <div class="valor">{{ total_reservaciones }}</div>
-                <div class="etiqueta">Total de reservaciones</div>
-            </div>
-        </div>
+    <div class="col-md-2 col-6 mb-3">
+        <div class="fs-4 fw-bold">{{ total_reservaciones }}</div>
+        <div class="text-muted small">Reservaciones</div>
     </div>
-    <div class="col-md-4">
-        <div class="card tarjeta-estadistica h-100">
-            <div class="card-body">
-                <div class="valor">{{ habitaciones_disponibles }}</div>
-                <div class="etiqueta">Habitaciones disponibles</div>
-            </div>
-        </div>
+    <div class="col-md-2 col-6 mb-3">
+        <div class="fs-4 fw-bold">{{ habitaciones_disponibles }}</div>
+        <div class="text-muted small">Disponibles</div>
     </div>
-    <div class="col-md-4">
-        <div class="card tarjeta-estadistica h-100">
-            <div class="card-body">
-                <div class="valor">${{ ingresos|floatformat:2|intcomma }}</div>
-                <div class="etiqueta">Ingresos generados (MXN)</div>
-            </div>
-        </div>
+    <div class="col-md-2 col-6 mb-3">
+        <div class="fs-4 fw-bold">${{ ingresos|floatformat:2|intcomma }}</div>
+        <div class="text-muted small">Ingresos (MXN)</div>
     </div>
-    <div class="col-md-4">
-        <div class="card tarjeta-estadistica h-100">
-            <div class="card-body">
-                <div class="valor">{{ porcentaje_ocupacion }}%</div>
-                <div class="etiqueta">Ocupación de hoy ({{ ocupadas_hoy }} habitaciones)</div>
-            </div>
-        </div>
+    <div class="col-md-2 col-6 mb-3">
+        <div class="fs-4 fw-bold">{{ porcentaje_ocupacion }}%</div>
+        <div class="text-muted small">Ocupación de hoy</div>
     </div>
 </div>
 
-<div class="row g-3">
-    <div class="col-lg-7">
-        <div class="card h-100">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <span>Últimas reservaciones</span>
-                <a href="{% url 'reservaciones:lista' %}" class="btn btn-sm btn-outline-primary">Ver todas</a>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped mb-0">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Cliente</th>
-                            <th>Habitación</th>
-                            <th>Entrada</th>
-                            <th>Total</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for reservacion in ultimas_reservaciones %}
-                        <tr>
-                            <td><a href="{% url 'reservaciones:detalle' reservacion.pk %}">{{ reservacion.pk }}</a></td>
-                            <td>{{ reservacion.cliente }}</td>
-                            <td>{{ reservacion.habitacion.numero }} ({{ reservacion.habitacion.tipo }})</td>
-                            <td>{{ reservacion.fecha_entrada|date:"d/m/Y" }}</td>
-                            <td>${{ reservacion.total|floatformat:2|intcomma }}</td>
-                            <td>{% include 'includes/badge_estado.html' with estado=reservacion.estado %}</td>
-                        </tr>
-                        {% empty %}
-                        <tr><td colspan="6" class="text-center text-muted py-4">Todavía no hay reservaciones registradas.</td></tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+<hr>
 
-    <div class="col-lg-5">
-        <div class="card h-100">
-            <div class="card-header">Próximas llegadas</div>
-            <div class="list-group list-group-flush">
-                {% for reservacion in proximas_entradas %}
-                <a href="{% url 'reservaciones:detalle' reservacion.pk %}"
-                   class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="fw-semibold">{{ reservacion.cliente }}</div>
-                        <small class="text-muted">
-                            Hab. {{ reservacion.habitacion.numero }} &middot;
-                            {{ reservacion.fecha_entrada|date:"d/m/Y" }} al {{ reservacion.fecha_salida|date:"d/m/Y" }}
-                        </small>
-                    </div>
-                    {% include 'includes/badge_estado.html' with estado=reservacion.estado %}
-                </a>
-                {% empty %}
-                <div class="list-group-item text-center text-muted py-4">
-                    No hay llegadas programadas.
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-</div>
+<h2 class="h5 mt-4">Últimas reservaciones</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Cliente</th>
+            <th>Habitación</th>
+            <th>Entrada</th>
+            <th>Total</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reservacion in ultimas_reservaciones %}
+        <tr>
+            <td><a href="{% url 'reservaciones:detalle' reservacion.pk %}">{{ reservacion.pk }}</a></td>
+            <td>{{ reservacion.cliente }}</td>
+            <td>{{ reservacion.habitacion.numero }} ({{ reservacion.habitacion.tipo }})</td>
+            <td>{{ reservacion.fecha_entrada|date:"d/m/Y" }}</td>
+            <td>${{ reservacion.total|floatformat:2|intcomma }}</td>
+            <td>{{ reservacion.estado }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6" class="text-center text-muted py-4">Todavía no hay reservaciones registradas.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2 class="h5 mt-4">Próximas llegadas</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Cliente</th>
+            <th>Habitación</th>
+            <th>Entrada</th>
+            <th>Salida</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reservacion in proximas_entradas %}
+        <tr>
+            <td><a href="{% url 'reservaciones:detalle' reservacion.pk %}">{{ reservacion.cliente }}</a></td>
+            <td>{{ reservacion.habitacion.numero }}</td>
+            <td>{{ reservacion.fecha_entrada|date:"d/m/Y" }}</td>
+            <td>{{ reservacion.fecha_salida|date:"d/m/Y" }}</td>
+            <td>{{ reservacion.estado }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" class="text-center text-muted py-4">No hay llegadas programadas.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

@@ -1,9 +1,1 @@
-{% if estado == 'Confirmada' %}
-<span class="badge text-bg-success">Confirmada</span>
-{% elif estado == 'Pendiente' %}
-<span class="badge text-bg-warning">Pendiente</span>
-{% elif estado == 'Cancelada' %}
-<span class="badge text-bg-danger">Cancelada</span>
-{% else %}
-<span class="badge text-bg-secondary">Finalizada</span>
-{% endif %}
+{{ estado }}

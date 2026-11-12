@@ -12,41 +12,36 @@
     <a href="{% url 'habitaciones:lista' %}" class="btn btn-outline-secondary">Regresar</a>
 </div>
 
-<div class="card">
-    <div class="card-header">Resumen por tipo</div>
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped mb-0">
-            <thead>
-                <tr>
-                    <th>Tipo</th>
-                    <th>Habitaciones</th>
-                    <th>Disponibles</th>
-                    <th>Precio promedio</th>
-                    <th class="text-end">Acción</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for fila in resumen %}
-                <tr>
-                    <td>{{ fila.tipo }}</td>
-                    <td>{{ fila.total }}</td>
-                    <td>{{ fila.disponibles }}</td>
-                    <td>${{ fila.precio_promedio|floatformat:2|intcomma }}</td>
-                    <td class="text-end">
-                        <a href="{% url 'habitaciones:lista' %}?tipo={{ fila.tipo }}" class="btn btn-sm btn-outline-primary">
-                            Ver habitaciones
-                        </a>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="5" class="text-center text-muted py-4">
-                        Todavía no hay habitaciones registradas.
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Tipo</th>
+            <th>Habitaciones</th>
+            <th>Disponibles</th>
+            <th>Precio promedio</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for fila in resumen %}
+        <tr>
+            <td>{{ fila.tipo }}</td>
+            <td>{{ fila.total }}</td>
+            <td>{{ fila.disponibles }}</td>
+            <td>${{ fila.precio_promedio|floatformat:2|intcomma }}</td>
+            <td>
+                <a href="{% url 'habitaciones:lista' %}?tipo={{ fila.tipo }}" class="btn btn-sm btn-outline-primary">
+                    Ver habitaciones
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" class="text-center text-muted py-4">
+                Todavía no hay habitaciones registradas.
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

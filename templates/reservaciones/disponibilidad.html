@@ -9,99 +9,86 @@
         <h1>Consultar disponibilidad</h1>
         <p>Busca habitaciones libres en un rango de fechas antes de reservar.</p>
     </div>
-    <a href="{% url 'reservaciones:lista' %}" class="btn btn-outline-secondary">Regresar
-    </a>
+    <a href="{% url 'reservaciones:lista' %}" class="btn btn-outline-secondary">Regresar</a>
 </div>
 
-<div class="card mb-4">
-    <div class="card-body">
-        <form method="get" class="row g-2 align-items-end">
-            <div class="col-md-3">
-                <label class="form-label" for="{{ form.fecha_entrada.id_for_label }}">Fecha de entrada</label>
-                {{ form.fecha_entrada }}
-            </div>
-            <div class="col-md-3">
-                <label class="form-label" for="{{ form.fecha_salida.id_for_label }}">Fecha de salida</label>
-                {{ form.fecha_salida }}
-            </div>
-            <div class="col-md-2">
-                <label class="form-label" for="{{ form.tipo.id_for_label }}">Tipo</label>
-                {{ form.tipo }}
-            </div>
-            <div class="col-md-2">
-                <label class="form-label" for="{{ form.capacidad.id_for_label }}">Capacidad mín.</label>
-                {{ form.capacidad }}
-            </div>
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-primary w-100">Buscar
-                </button>
-            </div>
-        </form>
-
-        {% if form.errors %}
-        <div class="alert alert-danger mt-3 mb-0">
-            {% for campo in form %}
-                {% for error in campo.errors %}<div>{{ error }}</div>{% endfor %}
-            {% endfor %}
-        </div>
-        {% endif %}
+<form method="get" class="row g-2 align-items-end mb-3">
+    <div class="col-md-3">
+        <label class="form-label" for="{{ form.fecha_entrada.id_for_label }}">Fecha de entrada</label>
+        {{ form.fecha_entrada }}
     </div>
+    <div class="col-md-3">
+        <label class="form-label" for="{{ form.fecha_salida.id_for_label }}">Fecha de salida</label>
+        {{ form.fecha_salida }}
+    </div>
+    <div class="col-md-2">
+        <label class="form-label" for="{{ form.tipo.id_for_label }}">Tipo</label>
+        {{ form.tipo }}
+    </div>
+    <div class="col-md-2">
+        <label class="form-label" for="{{ form.capacidad.id_for_label }}">Capacidad mín.</label>
+        {{ form.capacidad }}
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">Buscar</button>
+    </div>
+</form>
+
+{% if form.errors %}
+<div class="alert alert-danger">
+    {% for campo in form %}
+        {% for error in campo.errors %}<div>{{ error }}</div>{% endfor %}
+    {% endfor %}
 </div>
+{% endif %}
 
 {% if consultado and resultados is not None %}
-    <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <span>Habitaciones disponibles</span>
-            <span class="badge text-bg-primary">{{ resultados|length }} resultado(s)</span>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-bordered table-striped mb-0">
-                <thead>
-                    <tr>
-                        <th>Habitación</th>
-                        <th>Tipo</th>
-                        <th>Capacidad</th>
-                        <th>Precio / noche</th>
-                        <th>Noches</th>
-                        <th>Total estimado</th>
-                        <th class="text-end">Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for fila in resultados %}
-                    <tr>
-                        <td class="fw-semibold">{{ fila.habitacion.numero }}</td>
-                        <td>{{ fila.habitacion.tipo }}</td>
-                        <td>{{ fila.habitacion.capacidad }} personas</td>
-                        <td>${{ fila.habitacion.precio_noche|floatformat:2|intcomma }}</td>
-                        <td>{{ fila.noches }}</td>
-                        <td class="fw-semibold">${{ fila.total|floatformat:2|intcomma }}</td>
-                        <td class="text-end">
-                            <a class="btn btn-sm btn-primary"
-                               href="{% url 'reservaciones:crear' %}?habitacion={{ fila.habitacion.pk }}&entrada={{ form.fecha_entrada.value }}&salida={{ form.fecha_salida.value }}">Reservar
-                            </a>
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="7" class="text-center text-muted py-4">
-                            No hay habitaciones disponibles con esos criterios. Prueba con otras fechas.
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <p class="text-muted">{{ resultados|length }} resultado(s)</p>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Habitación</th>
+                <th>Tipo</th>
+                <th>Capacidad</th>
+                <th>Precio / noche</th>
+                <th>Noches</th>
+                <th>Total estimado</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fila in resultados %}
+            <tr>
+                <td>{{ fila.habitacion.numero }}</td>
+                <td>{{ fila.habitacion.tipo }}</td>
+                <td>{{ fila.habitacion.capacidad }} personas</td>
+                <td>${{ fila.habitacion.precio_noche|floatformat:2|intcomma }}</td>
+                <td>{{ fila.noches }}</td>
+                <td>${{ fila.total|floatformat:2|intcomma }}</td>
+                <td>
+                    <a class="btn btn-sm btn-primary"
+                       href="{% url 'reservaciones:crear' %}?habitacion={{ fila.habitacion.pk }}&entrada={{ form.fecha_entrada.value }}&salida={{ form.fecha_salida.value }}">
+                        Reservar
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center text-muted py-4">
+                    No hay habitaciones disponibles con esos criterios. Prueba con otras fechas.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% elif consultado %}
     <div class="alert alert-warning">
         Revisa las fechas ingresadas e intenta de nuevo.
     </div>
 {% else %}
-    <div class="card">
-        <div class="card-body text-center text-muted py-5">
-            Selecciona las fechas y presiona <strong>Buscar</strong> para consultar la disponibilidad.
-        </div>
-    </div>
+    <p class="text-muted">
+        Selecciona las fechas y presiona Buscar para consultar la disponibilidad.
+    </p>
 {% endif %}
 {% endblock %}
