@@ -54,6 +54,10 @@ personal del hotel.
 
 ## 3. Alcance
 
+El proyecto se desarrolló de manera individual, cubriendo los cinco módulos que la consigna
+distribuye entre integrantes: habitaciones, clientes, reservaciones, interfaz web y
+seguridad/reportes.
+
 ### Incluido
 
 - CRUD de habitaciones, clientes y reservaciones.
