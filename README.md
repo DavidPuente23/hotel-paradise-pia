@@ -4,6 +4,7 @@ Proyecto Final de **Fundamentos de Desarrollo Web** desarrollado con Django 5 y 
 
 **Alumno:** David Alejandro Puente Muñiz
 **Matrícula:** 2179996
+**Repositorio:** <https://github.com/DavidPuente23/hotel-paradise-pia>
 
 ---
 

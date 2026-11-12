@@ -25,7 +25,13 @@ administrar habitaciones, clientes, reservaciones y reportes.
 
 ## 2. Instalación y arranque
 
-1. Abrir una terminal en la carpeta del proyecto.
+1. Clonar el repositorio y entrar a la carpeta del proyecto:
+
+   ```
+   git clone https://github.com/DavidPuente23/hotel-paradise-pia
+   cd hotel-paradise-pia
+   ```
+
 2. Instalar las dependencias:
 
    ```

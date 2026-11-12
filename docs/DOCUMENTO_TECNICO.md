@@ -492,6 +492,7 @@ programación de las vistas y los templates.
 
 ## 12. Referencias
 
+- Repositorio del proyecto en GitHub: <https://github.com/DavidPuente23/hotel-paradise-pia>
 - Documentación oficial de Django: <https://docs.djangoproject.com/>
 - Documentación de Bootstrap 5: <https://getbootstrap.com/docs/5.3/>
 - Documentación de Python: <https://docs.python.org/3/>
