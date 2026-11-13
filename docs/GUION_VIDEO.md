@@ -1,7 +1,10 @@
 # Guion para el video de presentación (5 minutos)
 
 **Proyecto:** Sistema de Reservación de Hotel "Hotel Paradise"  
-**Alumno:** David Alejandro Puente Muñiz - 2179996
+**Alumno:** David Alejandro Puente Muñiz - 2179996  
+**Docente:** PEREZ SAUCEDA HIRAM ISAI  
+**Semestre:** 5to  
+**Grupo:** 52
 
 > Consejo: grabar la pantalla con el sistema ya iniciado y los datos de demostración cargados.
 > Hablar de forma tranquila y mostrar lo que se menciona.

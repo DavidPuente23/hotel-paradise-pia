@@ -7,12 +7,16 @@ Convierte DOCUMENTO_TECNICO.md y MANUAL_USUARIO.md a formato .docx con
 portada, títulos, listas, tablas e imágenes.
 """
 
+import io
 import re
+from copy import deepcopy
 from pathlib import Path
 
 from docx import Document
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
 from docx.shared import Inches, Pt, RGBColor
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -69,35 +73,6 @@ def escribir_texto_con_formato(parrafo, texto):
             parrafo.add_run(parte)
 
 
-def agregar_portada(documento, lineas):
-    for _ in range(4):
-        documento.add_paragraph()
-
-    for linea in lineas:
-        texto = linea.strip()
-        if not texto:
-            continue
-        if texto.startswith('# '):
-            parrafo = documento.add_paragraph()
-            parrafo.alignment = WD_ALIGN_PARAGRAPH.CENTER
-            run = parrafo.add_run(texto[2:])
-            run.bold = True
-            run.font.size = Pt(26)
-            run.font.color.rgb = AZUL
-        elif texto.startswith('## '):
-            parrafo = documento.add_paragraph()
-            parrafo.alignment = WD_ALIGN_PARAGRAPH.CENTER
-            run = parrafo.add_run(texto[3:])
-            run.font.size = Pt(16)
-            run.font.color.rgb = GRIS
-        else:
-            parrafo = documento.add_paragraph()
-            parrafo.alignment = WD_ALIGN_PARAGRAPH.CENTER
-            escribir_texto_con_formato(parrafo, texto)
-
-    documento.add_page_break()
-
-
 def agregar_tabla(documento, filas):
     if not filas:
         return
@@ -142,17 +117,54 @@ def agregar_imagen(documento, ruta, descripcion):
     run.font.color.rgb = GRIS
 
 
+def insertar_portada(ruta_docx):
+    """Coloca la portada oficial al inicio del documento, en su propia sección.
+
+    Se copia el contenido de portada.docx conservando sus márgenes, su borde de
+    página y sus imágenes, y se cierra la sección con un salto de página para que
+    el cuerpo del documento empiece en la página siguiente.
+    """
+    destino = Document(str(ruta_docx))
+    portada = Document(str(BASE_DIR / 'portada.docx'))
+
+    cuerpo_destino = destino.element.body
+    cuerpo_portada = portada.element.body
+    primero = cuerpo_destino[0]
+
+    # Registrar en el documento destino las imágenes de la portada
+    for imagen in cuerpo_portada.iter(qn('a:blip')):
+        r_id = imagen.get(qn('r:embed'))
+        if not r_id:
+            continue
+        parte = portada.part.related_parts[r_id]
+        nuevo_r_id, _ = destino.part.get_or_add_image(io.BytesIO(parte.blob))
+        imagen.set(qn('r:embed'), nuevo_r_id)
+
+    for elemento in list(cuerpo_portada.iterchildren()):
+        if elemento.tag == qn('w:sectPr'):
+            continue
+        primero.addprevious(deepcopy(elemento))
+
+    # Propiedades de la sección de la portada (márgenes y borde de página)
+    seccion_portada = deepcopy(cuerpo_portada.find(qn('w:sectPr')))
+    salto = OxmlElement('w:p')
+    propiedades = OxmlElement('w:pPr')
+    propiedades.append(seccion_portada)
+    salto.append(propiedades)
+    primero.addprevious(salto)
+
+    destino.save(str(ruta_docx))
+
+
 def convertir_markdown(ruta_md, ruta_docx):
     lineas = ruta_md.read_text(encoding='utf-8').splitlines()
 
-    # La portada es todo lo que está antes del primer separador
+    # La portada oficial vive en portada.docx; el contenido empieza tras el primer separador
     corte = lineas.index('---') if '---' in lineas else 0
-    portada = [linea for linea in lineas[:corte] if not linea.startswith('**Materia')]
     cuerpo = lineas[corte + 1:]
 
     documento = Document()
     configurar_estilos(documento)
-    agregar_portada(documento, portada)
 
     i = 0
     while i < len(cuerpo):
@@ -248,6 +260,7 @@ def convertir_markdown(ruta_md, ruta_docx):
         i += 1
 
     documento.save(ruta_docx)
+    insertar_portada(ruta_docx)
     print(f'Documento generado: {ruta_docx.name}')
 
 
