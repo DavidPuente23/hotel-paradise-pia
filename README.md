@@ -70,6 +70,16 @@ disponibilidad, dashboard con estadísticas y reportes.
 
 5. Abrir <http://127.0.0.1:8000/> en el navegador.
 
+### Si vienes del ZIP de entrega
+
+La carpeta ya incluye la base de datos `db.sqlite3` con los datos de demostración, así que no
+hace falta ejecutar `migrate` ni `cargar_demo`. Solo instala las dependencias y arranca:
+
+```bash
+pip install -r requirements.txt
+python manage.py runserver
+```
+
 ### Usuario de prueba
 
 | Usuario | Contraseña | Rol |
