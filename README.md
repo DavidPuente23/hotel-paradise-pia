@@ -137,3 +137,5 @@ la regla 4 en el modelo `Cliente` y en `ClienteForm.clean_correo`; y la regla 5 
 
 - [Documento técnico](docs/DOCUMENTO_TECNICO.md) · [PDF](docs/Documento_Tecnico.pdf) · [Word](docs/Documento_Tecnico.docx)
 - [Manual de usuario](docs/MANUAL_USUARIO.md) · [PDF](docs/Manual_de_Usuario.pdf) · [Word](docs/Manual_de_Usuario.docx)
+
+En la entrega comprimida, la carpeta `docs/` (con los PDF) se encuentra junto a la carpeta del proyecto.
