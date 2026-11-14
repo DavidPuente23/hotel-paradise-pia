@@ -447,55 +447,52 @@ Resultado: **28 pruebas ejecutadas correctamente (OK)**.
 
 ## 11. Conclusiones
 
-El proyecto se desarrolló de forma individual cubriendo los cinco roles planteado en el PIA.
-Las conclusiones se presentan por módulo, de acuerdo con la responsabilidad que correspondería a
-cada integrante.
+El proyecto se desarrolló de forma individual, cubriendo los cinco módulos que la consigna
+distribuye entre integrantes: habitaciones, clientes, reservaciones, interfaz web y
+seguridad con reportes. La conclusión integra el aprendizaje de todos esos frentes.
 
-### Integrante 1 - Módulo Habitaciones
+Diseñar la base de datos fue la base de todo: definir las entidades Cliente, Habitación y
+Reservación, sus campos y sus relaciones Uno a Muchos permitió que el resto del sistema se
+construyera con claridad. Comprobé que una buena planeación del modelo ahorra trabajo en las
+vistas y evita duplicar validaciones.
 
-Aprendí a diseñar un modelo con validaciones y a reutilizar métodos del modelo para consultar
-disponibilidad. El CRUD de habitaciones me permitió comprender cómo se conectan el formulario, la
-vista y el template, y la importancia de proteger la información relacionada antes de eliminar un
-registro.
+Los tres CRUD me mostraron el flujo completo de Django: usuario, URL, vista, formulario, modelo,
+base de datos, template y navegador. Aprendí a reutilizar métodos del modelo, a validar en el
+servidor y no solo en el navegador, y a proteger la información relacionada, por ejemplo al
+impedir que se elimine una habitación con reservaciones activas. El módulo de reservaciones fue
+el más exigente: detectar traslapes de fechas con consultas del ORM, calcular el total a partir
+de las noches y conservar el historial al cancelar una reserva.
 
-### Integrante 2 - Módulo Clientes
+En la interfaz, Bootstrap 5 permitió construir pantallas limpias y responsivas sin escribir
+demasiado CSS, y el uso de un template base con includes y mensajes flash mantuvo la
+consistencia en todo el sistema. En seguridad y reportes comprobé que una aplicación no solo debe
+funcionar, sino también proteger la información: el login, los permisos por tipo de usuario y las
+consultas con `annotate`, `Sum` y `TruncMonth` para generar estadísticas y exportar a CSV
+demuestran el potencial del ORM sin escribir SQL manual.
 
-La validación del correo único y del teléfono me mostraron que las reglas del negocio deben
-vivir tanto en el modelo como en el formulario. Las búsquedas con `Q` y `icontains` facilitan
-mucho la operación diaria del hotel y son sencillas de implementar con el ORM.
-
-### Integrante 3 - Módulo Reservaciones
-
-Fue el módulo más completo: aprendí a detectar traslapes de fechas con consultas del ORM, a
-calcular el total en el modelo y a cancelar reservaciones sin perder el historial. También
-comprendí la importancia de validar en el servidor y no solo en el navegador.
-
-### Integrante 4 - Interfaz Web
-
-Bootstrap 5 permitió construir una interfaz limpia y responsiva sin escribir demasiado CSS.
-Trabajar con un template base, includes y mensajes flash ayuda a mantener consistencia y a
-reutilizar código en todas las pantallas.
-
-### Integrante 5 - Seguridad y Reportes
-
-Implementar login, permisos y reportes me mostró que una aplicación web no solo debe funcionar,
-sino también proteger la información. Las consultas con `annotate`, `Sum` y `TruncMonth`
-demuestran el potencial del ORM para generar estadísticas sin escribir SQL manual.
-
-### Conclusión general
-
-El sistema cumple con los requerimientos del PIA: modelos y relaciones correctas, CRUDs
-funcionales, validación de disponibilidad, formularios con validaciones, interfaz con Bootstrap,
-dashboard, reportes, autenticación y documentación. El desarrollo del proyecto reforzó el flujo
-completo de Django y demostró que una buena planeación de la base de datos simplifica la
-programación de las vistas y los templates.
-
----
+En conjunto, el sistema cumple con los requerimientos del PIA: modelos y relaciones correctas,
+CRUDs funcionales, validación de disponibilidad, formularios con validaciones, interfaz con
+Bootstrap, dashboard, reportes, autenticación y documentación. El desarrollo reforzó el flujo
+completo de Django y me dejó como aprendizaje principal que la claridad del modelo de datos y la
+validación en el servidor son lo que sostiene a una aplicación web confiable.
 
 ## 12. Referencias
 
-- Repositorio del proyecto en GitHub: <https://github.com/DavidPuente23/hotel-paradise-pia>
 - Documentación oficial de Django: <https://docs.djangoproject.com/>
 - Documentación de Bootstrap 5: <https://getbootstrap.com/docs/5.3/>
 - Documentación de Python: <https://docs.python.org/3/>
 - Material del curso de Fundamentos de Desarrollo Web.
+
+## 13. Repositorio del proyecto en GitHub
+
+El código fuente completo del sistema está disponible en un repositorio público de GitHub, con el
+historial de cambios separado por módulo:
+
+<https://github.com/DavidPuente23/hotel-paradise-pia>
+
+## 14. Video de presentación
+
+La demostración del sistema, con una duración aproximada de cinco minutos, está disponible en:
+
+<https://youtu.be/Mdq8zyqz_q0?si=3UTRafyMq8ccWLru>
+

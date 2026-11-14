@@ -57,14 +57,16 @@ def configurar_estilos(documento):
 
 
 def escribir_texto_con_formato(parrafo, texto):
-    """Escribe texto aplicando **negritas** y `código`."""
-    partes = re.split(r'(\*\*[^*]+\*\*|`[^`]+`)', texto)
+    """Escribe texto aplicando **negritas**, `código` y enlaces automáticos."""
+    partes = re.split(r'(\*\*[^*]+\*\*|`[^`]+`|<https?://[^>]+>)', texto)
     for parte in partes:
         if not parte:
             continue
         if parte.startswith('**') and parte.endswith('**'):
             run = parrafo.add_run(parte[2:-2])
             run.bold = True
+        elif parte.startswith('<http') and parte.endswith('>'):
+            parrafo.add_run(parte[1:-1])
         elif parte.startswith('`') and parte.endswith('`'):
             run = parrafo.add_run(parte[1:-1])
             run.font.name = 'Consolas'
