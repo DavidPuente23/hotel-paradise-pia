@@ -267,4 +267,3 @@ def convertir_markdown(ruta_md, ruta_docx):
 if __name__ == '__main__':
     convertir_markdown(BASE_DIR / 'DOCUMENTO_TECNICO.md', BASE_DIR / 'Documento_Tecnico.docx')
     convertir_markdown(BASE_DIR / 'MANUAL_USUARIO.md', BASE_DIR / 'Manual_de_Usuario.docx')
-    convertir_markdown(BASE_DIR / 'GUION_VIDEO.md', BASE_DIR / 'Guion_Video.docx')

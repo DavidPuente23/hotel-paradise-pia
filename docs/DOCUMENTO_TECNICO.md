@@ -384,7 +384,7 @@ fechas y estado.
 - Comando `cargar_demo` para inicializar el sistema con datos de prueba.
 - 28 pruebas automatizadas.
 - Exportación de reportes a CSV.
-- Documentación técnica, manual de usuario y guion de video.
+- Documentación técnica y manual de usuario.
 
 ---
 
